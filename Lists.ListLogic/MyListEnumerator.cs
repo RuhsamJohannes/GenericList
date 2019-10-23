@@ -38,7 +38,7 @@ namespace Lists.ListLogic
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public T Current => _actualNode.DataObject;

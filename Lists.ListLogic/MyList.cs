@@ -23,20 +23,23 @@ namespace Lists.ListLogic
         /// <returns>Index des Werts in der Liste</returns>
         public void Add(T value)
         {
+            int index = 1;
             Node<T> insertNode = new Node<T>(value);
             if (_head == null)
             {
                 _head = insertNode;
                 //return 0;
             }
-            Node<T> searchNode = _head;
-            int index = 1;
-            while (searchNode.Next != null)
+            else
             {
-                searchNode = searchNode.Next;
-                index++;
+                Node<T> searchNode = _head;
+                while (searchNode.Next != null)
+                {
+                    searchNode = searchNode.Next;
+                    index++;
+                }
+                searchNode.Next = insertNode;
             }
-            searchNode.Next = insertNode;
             //return index;
         }
 
