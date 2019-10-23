@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Text;
+using Lists.Entity;
 using Lists.ListLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -521,8 +522,88 @@ namespace Lists.Test
             Assert.AreEqual(3, value);
         }
 
+        [TestMethod()]
+        public void SortPeopleByLastNameAsc_ShouldReturnCorrectArray()
+        {
+            //Arrange
+            MyList<Person> list = new MyList<Person>();
+            Person MariaMaier = new Person("Maria", "Maier", 48);
+            Person HubertGois = new Person("Hubert", "Gois", 60);
+            Person HannesKrank = new Person("Hannes", "Krank", 50);
+            Person ArnoldSchwarz = new Person("Arnold", "Schwarz", 32);
+            Person HerrMann = new Person("Herr", "Mann", 45);
+            list.Add(MariaMaier);
+            list.Add(HubertGois);
+            list.Add(HannesKrank);
+            list.Add(ArnoldSchwarz);
+            list.Add(HerrMann);
+            list.Add(ArnoldSchwarz);
 
+            Person[] expected = {HubertGois, HannesKrank, MariaMaier, HerrMann, ArnoldSchwarz, ArnoldSchwarz};
+            Person[] targetArray = new Person[list.Count];
 
+            //Act
+            list.Sort();
+            list.CopyTo(targetArray, 0);
+
+            //Assert
+            CollectionAssert.AreEqual(expected, targetArray);
+        }
+        [TestMethod()]
+        public void SortPeopleByFirstNameAsc_ShouldReturnCorrectArray()
+        {
+            //Arrange
+            MyList<Person> list = new MyList<Person>();
+            Person MariaMaier = new Person("Maria", "Maier", 48);
+            Person HubertGois = new Person("Hubert", "Gois", 60);
+            Person HannesKrank = new Person("Hannes", "Krank", 50);
+            Person ArnoldSchwarz = new Person("Arnold", "Schwarz", 32);
+            Person HerrMann = new Person("Herr", "Mann", 45);
+            list.Add(MariaMaier);
+            list.Add(HubertGois);
+            list.Add(HannesKrank);
+            list.Add(ArnoldSchwarz);
+            list.Add(HerrMann);
+            list.Add(ArnoldSchwarz);
+
+            Person[] expected = { ArnoldSchwarz, ArnoldSchwarz, HannesKrank, HerrMann, HubertGois, MariaMaier };
+            Person[] targetArray = new Person[list.Count];
+            IComparer comp = Person.SortByFirstnameAsc();
+            //Act
+            list.Sort(comp);
+            list.CopyTo(targetArray, 0);
+
+            //Assert
+            CollectionAssert.AreEqual(expected, targetArray);
+        }
+
+        [TestMethod()]
+        public void SortPeopleByAgeDsc_ShouldReturnCorrectArray()
+        {
+            //Arrange
+            MyList<Person> list = new MyList<Person>();
+            Person MariaMaier = new Person("Maria", "Maier", 48);
+            Person HubertGois = new Person("Hubert", "Gois", 60);
+            Person HannesKrank = new Person("Hannes", "Krank", 50);
+            Person ArnoldSchwarz = new Person("Arnold", "Schwarz", 32);
+            Person HerrMann = new Person("Herr", "Mann", 45);
+            list.Add(MariaMaier);
+            list.Add(HubertGois);
+            list.Add(HannesKrank);
+            list.Add(ArnoldSchwarz);
+            list.Add(HerrMann);
+            list.Add(ArnoldSchwarz);
+
+            Person[] expected = { HubertGois, HannesKrank, MariaMaier, HerrMann, ArnoldSchwarz, ArnoldSchwarz };
+            Person[] targetArray = new Person[list.Count];
+            IComparer comp = Person.SortByAgeDsc();
+            //Act
+            list.Sort(comp);
+            list.CopyTo(targetArray, 0);
+
+            //Assert
+            CollectionAssert.AreEqual(expected, targetArray);
+        }
 
     }
 }
